@@ -1,8 +1,14 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Firebase.dart';
+import 'package:dating_app/models/Passons.dart';
 import 'package:dating_app/screens/home/home_screen.dart';
 import 'package:dating_app/screens/login_registeration/login_screen.dart';
 import 'package:dating_app/screens/login_registeration/verification_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+
+
 
 class RegisterationScreen extends StatefulWidget {
   const RegisterationScreen({Key? key}) : super(key: key);
@@ -10,12 +16,119 @@ class RegisterationScreen extends StatefulWidget {
   @override
   _RegisterationScreenState createState() => _RegisterationScreenState();
 }
-
+String code = "";
 class _RegisterationScreenState extends State<RegisterationScreen> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  bool showLoading = false;
+  String? verificationId;
+
+
+  void signInWithPhoneAuthCredential(
+      PhoneAuthCredential phoneAuthCredential) async {
+    setState(() {
+      showLoading = true;
+    });
+    try {
+      final authCredential =
+      await _auth.signInWithCredential(phoneAuthCredential,
+      );
+      //
+
+      setState(() {
+        showLoading = false;
+      });
+      if(authCredential.user != null){
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen()));
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        showLoading = false;
+      });
+
+    }
+  }
+
+  void verifycode() async {
+
+    try {
+
+
+        //userSetup(displayName: name, phoneNumber: PhoneNumber,email: emaillm,Id: SerialNumber,SerialNumberpassword: pass );
+        PhoneAuthCredential phoneAuthCredential =
+        await PhoneAuthProvider.credential(
+            verificationId: verificationId!, smsCode: code);
+        signInWithPhoneAuthCredential(phoneAuthCredential);
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+
+
+
+  }
+
+
+
+  void sendusercode() async {
+    print('inam');
+    setState(() {
+      showLoading = true;
+    });
+
+
+    await _auth.verifyPhoneNumber(
+      phoneNumber: email!,
+
+
+
+
+      verificationCompleted: (phoneAuthCredential) async {
+        print('inam2');
+        setState(() {
+          showLoading = false;
+
+        });
+//signInWithPhoneAuthCredential(phoneAuthCreFdential);
+      },
+      verificationFailed: (verificationFailed) async {
+        setState(() {
+          showLoading = false;
+        });
+        _scaffoldKey.currentState!.showSnackBar(
+            SnackBar(content: Text(verificationFailed.message??'inam')));
+
+        print(verificationFailed.message);
+      },
+      codeSent: (verificationId, resendingToken) async {
+        setState(() {
+          showLoading = false;
+
+          this.verificationId = verificationId;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VerificationScreen(veri:this.verificationId)));
+        });
+      },
+      codeAutoRetrievalTimeout: (verificationId) async {},
+    );
+  }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return  showLoading
+        ? Center(
+      child: CircularProgressIndicator(),
+    )
+        :Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Column(
@@ -65,19 +178,10 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           Icons.person,
                           color: backgroundColorr,
                         ),
-                        "User Name",
-                        false),
+                        "PhoneNumber",
+                        false,false),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    child: textField(
-                        Icon(
-                          Icons.mail,
-                          color: backgroundColorr,
-                        ),
-                        "Email ID",
-                        false),
-                  ),
+
                   Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: textField(
@@ -86,18 +190,17 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
                           color: backgroundColorr,
                         ),
                         "Password",
-                        false),
+                        false,true),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VerificationScreen()));
-                    },
+                    onTap:(){
+                      setState(() {
+                        sendusercode();
+                      });
+                     } ,
                     child: Material(
                       elevation: 10,
                       color: backgroundColorr,
@@ -200,8 +303,11 @@ class _RegisterationScreenState extends State<RegisterationScreen> {
   }
 }
 
-TextField textField(Icon icon, String hintText, var obscTextTrue) {
+TextField textField(Icon icon, String hintText, var obscTextTrue,bool ispsd) {
   return TextField(
+    onChanged: (value){
+      ispsd?password=value:email=value;
+    },
     obscureText: obscTextTrue,
     decoration: InputDecoration(
       hintText: hintText,

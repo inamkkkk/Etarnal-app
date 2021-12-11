@@ -1,8 +1,16 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Firebase.dart';
+import 'package:dating_app/models/Passons.dart';
 import 'package:dating_app/screens/home/home_screen.dart';
 import 'package:dating_app/screens/login_registeration/registeration_screen.dart';
 import 'package:dating_app/screens/login_registeration/verification_screen.dart';
+import 'package:dating_app/screens/profile_home/profile_home_screen.dart';
 import 'package:flutter/material.dart';
+
+
+
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,10 +20,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  bool showloading = false ;
+
+  void getlogin()async{
+
+    var a = await login(Phone: email,password: password);
+   if(a) {
+     setState(() {
+       showloading = false;
+       Navigator.push(
+           context,
+           MaterialPageRoute(
+               builder: (context) => ProfileHomeScreen()));
+     });
+
+
+  }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
+    return showloading?Center(
+      child: CircularProgressIndicator(),
+    ):Scaffold(
       backgroundColor: white,
       appBar: AppBar(
         elevation: 0,
@@ -72,12 +101,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: textField(
+
+
                         Icon(
                           Icons.mail,
                           color: backgroundColorr,
                         ),
-                        "Email",
-                        false),
+                        "PhoneNumber",
+                        false,false),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
@@ -87,17 +118,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: backgroundColorr,
                         ),
                         "Password",
-                        false),
+                        false,true),
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => VerificationScreen()));
+
+
+                      setState(() {
+                        showloading = true;
+                       getlogin();
+
+                      });
+
                     },
                     child: Material(
                       elevation: 10,
@@ -200,8 +235,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-TextField textField(Icon icon, String hintText, var obscTextTrue) {
+TextField textField(Icon icon, String hintText, var obscTextTrue , bool ispswd) {
   return TextField(
+    onChanged: (value){
+      ispswd?password=value:email=value;
+    },
     obscureText: obscTextTrue,
     decoration: InputDecoration(
       hintText: hintText,

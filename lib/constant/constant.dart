@@ -73,7 +73,21 @@ BoxDecoration buttonDecoration() {
         ),
       ]);
 }
+BoxDecoration RoundButton() {
+  return BoxDecoration(
+      color: Colors.black,
+      borderRadius: BorderRadius.all(
+     Radius.circular(80),
 
+      ),
+      boxShadow: [
+        BoxShadow(
+          blurRadius: 20.0,
+          color: black.withOpacity(0.4),
+          offset: Offset(5, 20),
+        ),
+      ]);
+}
 BoxDecoration settingDecoration() {
   return BoxDecoration(
       color: Colors.white,

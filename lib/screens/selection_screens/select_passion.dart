@@ -1,4 +1,6 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Firebase.dart';
+import 'package:dating_app/models/Passons.dart';
 import 'package:dating_app/screens/profile_home/profile_home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +12,27 @@ class SelectYourPassion extends StatefulWidget {
 }
 
 class _SelectYourPassionState extends State<SelectYourPassion> {
+  var showLoading= false;
+  void addingUser()async{
+
+   await userSetup(gender:gender,meet:meet,datingP:datingP,height:height,weight:weight,name:name,Bdate:Bdate,password:password);
+   setState(() {
+     showLoading = false;
+     Navigator.push(
+         context,
+         MaterialPageRoute(
+             builder: (context) => ProfileHomeScreen()));
+
+   });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+    return showLoading
+        ? Center(
+      child: CircularProgressIndicator(),
+    ):Scaffold(
       backgroundColor: backgroundColorr,
       appBar: AppBar(
         elevation: 0,
@@ -22,162 +42,62 @@ class _SelectYourPassionState extends State<SelectYourPassion> {
         physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         child: Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Passions",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(left: 20, top: 60, right: 20),
-                  child: Text(
-                    "Let everyone know what you're passionate about by adding it to your profile",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 150, left: 15),
-                      width: 100,
-                      height: 40,
-                      decoration: buttonDecoration(),
-                      child: Text("Shopping"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 150, left: 10),
-                      width: 100,
-                      height: 40,
-                      decoration: buttonDecoration(),
-                      child: Text("Plant-based"),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 150, left: 15),
-                      width: 100,
-                      height: 40,
-                      decoration: buttonDecoration(),
-                      child: Text("Sports"),
-                    ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 60),
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 15),
-                        width: 100,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Writer"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 100,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("netflix"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 15),
-                        width: 100,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("netflix"),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 120),
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 60,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Tea"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 80,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("instagram"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 80,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Athelete"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 80,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Climbing"),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 180, left: 50),
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 15),
-                        width: 100,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Movies"),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 150, left: 10),
-                        width: 100,
-                        height: 40,
-                        decoration: buttonDecoration(),
-                        child: Text("Swimming"),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Text(
+                "Passions",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
+            Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(left: 20, top: 60, right: 20),
+              child: Text(
+                "Let everyone know what you're passionate about by adding it to your profile",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+               SizedBox(
+                 height: 10,
+               ),
+               Wrap(
+             children: [
+               hobey(hbey: 'shoping'),
+               hobey(hbey: 'Plant-based'),
+               hobey(hbey: 'Sports'),
+               hobey(hbey: 'Writer'),
+               hobey(hbey: 'netflix'),
+               hobey(hbey: 'Tea'),
+               hobey(hbey: 'instagram'),
+               hobey(hbey: 'Athelete'),
+               hobey(hbey: 'Climbing'),
+               hobey(hbey: 'Movies'),
+
+
+
+
+             ],
+               ),
             SizedBox(
               height: 50,
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProfileHomeScreen()));
+
+                setState(() {
+showLoading=true;
+                  addingUser();
+                });
+
+                 print('date : $Bdate gender: $gender,meet: $meet,datingP:$datingP,height:$height,weight:$weight,name:$name,email:$email,password: $password,Passion : $Passions');
+
               },
               child: Material(
                 elevation: 10,
@@ -204,3 +124,45 @@ class _SelectYourPassionState extends State<SelectYourPassion> {
     );
   }
 }
+class hobey extends StatefulWidget {
+  final String hbey;
+
+  const hobey({Key? key,required this.hbey}) : super(key: key);
+
+  @override
+  _hobeyState createState() => _hobeyState();
+}
+
+class _hobeyState extends State<hobey> {
+  bool? ismarked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return
+      InkWell(
+        onTap: (){
+          setState(() {
+            Passions!.add("${widget.hbey}");
+            ismarked = true;
+          });
+        },
+        child: ismarked!?Container(
+                alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 20, left: 15),
+          width: 40,
+          height: 40,
+          decoration: RoundButton(),
+          child: Icon(Icons.check,color: Colors.white,)
+        ):Container(
+alignment: Alignment.center,
+margin: EdgeInsets.only(top: 20, left: 15),
+width: 100,
+height: 40,
+decoration: buttonDecoration(),
+child: Text("${widget.hbey}"),
+),
+      );
+  }
+}
+
+

@@ -1,4 +1,5 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Passons.dart';
 import 'package:dating_app/screens/selection_screens/select_passion.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +64,8 @@ class _SelectDateState extends State<SelectDate> {
                     .then((date) {
                   setState(() {
                     dateTime = date!;
+                    Bdate = dateTime.toString();
+                    print(date);
                   });
                 });
               },

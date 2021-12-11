@@ -1,4 +1,5 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Passons.dart';
 
 import 'package:dating_app/screens/selection_screens/dating_purpose_screen.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _SelectGenderToMeetState extends State<SelectGenderToMeet> {
               children: [
                 InkWell(
                   onTap: () {
+                    meet = 'Man';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -77,6 +79,7 @@ class _SelectGenderToMeetState extends State<SelectGenderToMeet> {
                 ),
                 InkWell(
                   onTap: () {
+                    meet = 'Women';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -90,6 +93,7 @@ class _SelectGenderToMeetState extends State<SelectGenderToMeet> {
                       width: 250,
                       height: 50,
                       child: Center(
+
                         child: Text(
                           "WOMEN",
                           style:
@@ -104,6 +108,7 @@ class _SelectGenderToMeetState extends State<SelectGenderToMeet> {
                 ),
                 InkWell(
                   onTap: () {
+                    meet = 'EveryBody';
                     Navigator.push(
                         context,
                         MaterialPageRoute(

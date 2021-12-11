@@ -1,4 +1,5 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Passons.dart';
 import 'package:dating_app/screens/selection_screens/select_date.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,9 @@ class _SelectYourNameState extends State<SelectYourName> {
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(20)),
               child: TextField(
+                onChanged: (value){
+                  name = value;
+                },
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                   hintText: "Your Name",

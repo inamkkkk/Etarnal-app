@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "308948630447",
+    "project_id": "etarnal",
+    "storage_bucket": "etarnal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308948630447:android:3cd620061e3c2aa0180d5a",
+        "android_client_info": {
+          "package_name": "com.example.dating_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308948630447-vslqvcs4frl6dtliugp7gejauf7hioff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dating_app",
+            "certificate_hash": "be37a68a46f2c555994ce04944506932597ddb38"
+          }
+        },
+        {
+          "client_id": "308948630447-1g21jnka13qnch3hjboephlbd1jecl4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf2XinbwX690Q4JHwrpDfsTDfLpdtGShg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308948630447-1g21jnka13qnch3hjboephlbd1jecl4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

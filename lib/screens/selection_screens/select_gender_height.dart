@@ -1,4 +1,5 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Passons.dart';
 
 import 'package:dating_app/screens/selection_screens/select_gender_weight.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _SelectGenderHeightState extends State<SelectGenderHeight> {
               children: [
                 InkWell(
                   onTap: () {
+                    height = '170';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -77,6 +79,7 @@ class _SelectGenderHeightState extends State<SelectGenderHeight> {
                 ),
                 InkWell(
                   onTap: () {
+                    height = '170-190';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -104,6 +107,7 @@ class _SelectGenderHeightState extends State<SelectGenderHeight> {
                 ),
                 InkWell(
                   onTap: () {
+                    height = 'over 190';
                     Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,4 +1,5 @@
 import 'package:dating_app/constant/constant.dart';
+import 'package:dating_app/models/Passons.dart';
 
 import 'package:dating_app/screens/selection_screens/select_gender_height.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +65,7 @@ class _SelectDatingPurposeState extends State<SelectDatingPurpose> {
               children: [
                 InkWell(
                   onTap: () {
+                    datingP = 'Date';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -91,6 +93,7 @@ class _SelectDatingPurposeState extends State<SelectDatingPurpose> {
                 ),
                 InkWell(
                   onTap: () {
+                    datingP = 'Flirt';
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -118,6 +121,7 @@ class _SelectDatingPurposeState extends State<SelectDatingPurpose> {
                 ),
                 InkWell(
                   onTap: () {
+                    datingP =  "Relationship/dating";
                     Navigator.push(
                         context,
                         MaterialPageRoute(
